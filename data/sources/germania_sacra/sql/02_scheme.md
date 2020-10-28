@@ -14,6 +14,9 @@ Tables in Germania Sacra:
   1. books
   2. gsn
   3. items
+      - might be sources (page numbers, filenames)
+      - with original name
+      - art? some kind of controlled vocabulary 
   4. locations
   5. offices
   6. persons

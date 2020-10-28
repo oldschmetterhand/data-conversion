@@ -272,9 +272,48 @@ DESC;
 
 ## GND + cerlid + viaf
 
+- count cerlid
+```SQL
+SELECT 
+	(SELECT COUNT(*) FROM persons) AS total_persons_count,
+	COUNT(cerlid) AS cerlid_count
+FROM 
+	persons
+WHERE
+	cerlid != '';
+-- 16836/79611 have an assigned cerlid
+
+```
+
+- count viaf
 
 ```SQL
 
+SELECT 
+	(SELECT COUNT(*) FROM persons) AS total_persons_count,
+	COUNT(viaf) AS viaf_count
+FROM 
+	persons
+WHERE
+	viaf != '';
+
+-- 9 / 79611 have assigned viaf
+-- there is also malformed data inside "von Münster" as VIAF
+
+```
+
+-- GND
+
+```SQL
+
+-- 
+SELECT 
+	(SELECT COUNT(*) FROM persons) AS total_persons_count, 
+ 	COUNT(*) AS with_gnd_count
+FROM
+	persons
+WHERE
+	gndnummer != ''
 
 
 ```
