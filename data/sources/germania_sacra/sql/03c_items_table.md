@@ -116,3 +116,27 @@ DESC;
 ```
 
 
+### dateiname
+
+```SQL
+
+SELECT 
+	dateiname,
+    COUNT(*) AS total_count,
+    (SELECT COUNT(*) FROM items) AS total_item_count
+FROM
+	items
+GROUP BY
+	dateiname
+ORDER BY 
+	total_count
+DESC;
+
+-- by far the most have a dateiname
+-- most pointing to the same file
+
+```
+
+
+
+### 
