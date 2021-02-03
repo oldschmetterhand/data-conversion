@@ -1,0 +1,58 @@
+version: '3.1'
+
+# mysql -u root -pexample < /tmp/gs_klosterdatenbank.sql
+# mysql < /tmp/gs_klosterdatenbank.sql
+
+services:
+
+  db:
+    image: mariadb
+    container_name: gs_mdb
+    restart: unless-stopped
+    volumes:
+      - ./data:/tmp
+      - data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  
+  adminer:
+    image: adminer
+    container_name: gs_adm
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+
+  pg:
+    image: postgres:latest
+    container_name: gs_pg
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql
+      - ./data:/tmp/data
+    environment:
+      POSTGRES_DB: germania_sacra
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: gs_pga
+    restart: unless-stopped
+    ports:
+      - 8585:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  data: {}
+  pg_data: {}
+  pgadmin_data: {}
