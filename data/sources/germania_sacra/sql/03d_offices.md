@@ -20,3 +20,21 @@ DESC;
 
 
 ```
+
+
+### Count weltliche offices 
+
+```SQL
+
+SELECT 
+	COUNT(*)
+FROM
+	gs_datenbank.offices
+WHERE
+	art != 'geistlich'
+-- 2306 are weltlich
+-- 65827 are geistlich
+
+
+```
+
