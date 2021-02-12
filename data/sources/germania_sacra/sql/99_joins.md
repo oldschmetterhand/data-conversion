@@ -89,4 +89,44 @@ WHERE
 	art = 'geistlich'
 	
 
+
+-- mit verbundenem Kloster!
+SELECT
+	bezeichnung,
+	weihegrad,
+	vorname,
+	persons.id AS person_id,
+	monastery_name
+FROM
+	gs_datenbank.offices
+JOIN
+	gs_datenbank.persons
+	ON
+	gs_datenbank.offices.person_id = gs_datenbank.persons.id
+JOIN
+	gs_klosterdatenbank.gs_monastery
+	ON
+	gs_datenbank.offices.klosterid = gs_klosterdatenbank.gs_monastery.id_gsn
+WHERE
+	art = 'geistlich'
+	
+-- unique offices ordered by count
+SELECT
+	bezeichnung,
+	COUNT(*) AS occurence
+FROM
+	gs_datenbank.offices
+JOIN
+	gs_datenbank.persons
+	ON
+	gs_datenbank.offices.person_id = gs_datenbank.persons.id
+WHERE
+	art = 'geistlich'
+GROUP BY 
+	bezeichnung
+ORDER BY
+	occurence
+DESC
+
+
 ```
