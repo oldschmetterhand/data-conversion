@@ -128,5 +128,78 @@ ORDER BY
 	occurence
 DESC
 
+```
+
+
+
+```SQL
+
+-- aggregate offices with klosternames
+SELECT
+	bezeichnung,
+	string_agg(monastery_name, ', ')
+FROM
+	gs_datenbank.offices
+JOIN
+	gs_klosterdatenbank.gs_monastery
+	ON
+	gs_datenbank.offices.klosterid = gs_klosterdatenbank.gs_monastery.id_gsn
+GROUP BY
+	bezeichnung
+
+
+-- aggregation with count
+SELECT
+	bezeichnung,
+	STRING_AGG(monastery_name, ', '),
+	COUNT(*) AS vorkommen
+FROM
+	gs_datenbank.offices
+JOIN
+	gs_klosterdatenbank.gs_monastery
+	ON
+	gs_datenbank.offices.klosterid = gs_klosterdatenbank.gs_monastery.id_gsn
+GROUP BY
+	bezeichnung
+ORDER BY
+	vorkommen
+DESC
+
+-- with distinct monastery name
+SELECT
+	bezeichnung,
+	STRING_AGG(DISTINCT monastery_name, ', '),
+	COUNT(*) AS vorkommen
+FROM
+	gs_datenbank.offices
+JOIN
+	gs_klosterdatenbank.gs_monastery
+	ON
+	gs_datenbank.offices.klosterid = gs_klosterdatenbank.gs_monastery.id_gsn
+GROUP BY
+	bezeichnung
+ORDER BY
+	vorkommen
+DESC
+
+
+-- count and order by distinct monasteries
+SELECT
+	bezeichnung,
+	STRING_AGG(DISTINCT monastery_name, ', '),
+	COUNT(DISTINCT monastery_name) AS distinct_monastery_count,
+	COUNT(*) AS vorkommen_gesamt
+FROM
+	gs_datenbank.offices
+JOIN
+	gs_klosterdatenbank.gs_monastery
+	ON
+	gs_datenbank.offices.klosterid = gs_klosterdatenbank.gs_monastery.id_gsn
+GROUP BY
+	bezeichnung
+ORDER BY
+	distinct_monastery_count
+DESC
+
 
 ```
